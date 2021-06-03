@@ -30,3 +30,8 @@ jinfo -flag MaxHeapSize  3556
 jinfo -flag UseG1GC 7208
 
 查看垃圾回收器
+
+
+
+
+
