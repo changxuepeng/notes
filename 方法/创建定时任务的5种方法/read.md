@@ -191,7 +191,7 @@ xxl-job 有什么用？
 - 执行原理同Nginx 类型，所有定时任务通过任务调度平台分发，也可配置负载均衡等等
 - 首先让我们能够使用起来，搭建一个自己的任务
 
-第一步: github下载源码导入
+#### 第一步: github下载源码导入
 
 下载地址：https://github.com/xuxueli/xxl-job/
 
@@ -199,7 +199,7 @@ xxl-job 有什么用？
 
 ![image-20210609112102931](read.assets/image-20210609112102931.png)
 
-第二步: 执行sql
+#### 第二步: 执行sql
 
 文件地址：xxl-job/doc/db/tables_xxl_job.sql
 
@@ -207,7 +207,7 @@ xxl-job 有什么用？
 
 ![image-20210609112123861](read.assets/image-20210609112123861.png)
 
-第三步: 修改xxl-job-admin项目配置
+#### 第三步: 修改xxl-job-admin项目配置
 
 配置文件：application.properties
 
