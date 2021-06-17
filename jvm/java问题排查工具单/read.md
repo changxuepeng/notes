@@ -167,7 +167,7 @@ jmap -histo 2815 | head -10
 
 ![图片](read.assets/640)
 
-##### 4.**jstat**
+#### 5.**jstat**
 
 jstat参数众多，但是使用一个就够了
 
@@ -177,7 +177,7 @@ jstat -gcutil 2815 1000
 
 ![图片](read.assets/640)
 
-##### 5.**jdb**
+#### 6.**jdb**
 
 时至今日，jdb也是经常使用的。
 
