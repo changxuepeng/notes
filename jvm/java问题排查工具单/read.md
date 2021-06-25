@@ -135,7 +135,7 @@ jstack -m 2815
 jinfo -flags 2815
 ```
 
-![image-20210617092626576](read.assets/image-20210617092626576.png)
+![图片](read.assets/jinfo111)
 
 #### 4.**jmap**
 
@@ -165,7 +165,7 @@ jmap -dump:format=b,file=/tmp/heap3.bin 2815
 jmap -histo 2815 | head -10
 ```
 
-![图片](read.assets/640)
+![图片](read.assets/jmap111)
 
 #### 5.**jstat**
 
@@ -175,7 +175,45 @@ jstat参数众多，但是使用一个就够了
 jstat -gcutil 2815 1000 
 ```
 
-![图片](read.assets/640)
+![图片](read.assets/jstat)
+
+
+
+```
+S0C    S1C    S0U    S1U      EC       EU        OC         OU       MC     MU    CCSC   CCSU   YGC     YGCT    FGC    FGCT     GCT   
+19648.0 19648.0  0.0   14528.0 157312.0 91482.0   458752.0   62867.4   60032.0 58790.0 7040.0 6727.9     19    3.854   0      0.000    3.854
+```
+
+
+
+S0C：第一个幸存区的大小
+S1C：第二个幸存区的大小
+S0U：第一个幸存区的使用大小
+S1U：第二个幸存区的使用大小
+EC：伊甸园区的大小
+EU：伊甸园区的使用大小
+OC：老年代大小
+OU：老年代使用大小
+MC：方法区大小
+MU：方法区使用大小
+CCSC:压缩类空间大小
+CCSU:压缩类空间使用大小
+YGC：年轻代垃圾回收次数
+YGCT：年轻代垃圾回收消耗时间
+FGC：老年代垃圾回收次数
+FGCT：老年代垃圾回收消耗时间
+GCT：垃圾回收消耗总时间
+
+
+
+https://www.cnblogs.com/zhangfengshi/p/11343102.html
+
+> Java整个堆大小设置，Xmx 和 Xms设置为老年代存活对象的3-4倍，即FullGC之后的老年代内存占用的3-4倍
+> 永久代 PermSize和MaxPermSize设置为老年代存活对象的1.2-1.5倍。
+> 年轻代Xmn的设置为老年代存活对象的1-1.5倍。
+> 老年代的内存大小设置为老年代存活对象的2-3倍。
+
+https://www.jianshu.com/p/479a715d461e
 
 #### 6.**jdb**
 
@@ -185,7 +223,7 @@ jdb可以用来预发debug,假设你预发的java_home是/opt/taobao/java/，远
 
 > sudo -u admin /opt/taobao/java/bin/jdb -attach 8000.
 
-![图片](read.assets/640)
+![图片](read.assets/jdb)
 
 出现以上代表jdb启动成功。后续可以进行设置断点进行调试。
 
