@@ -385,3 +385,10 @@ prepare，准备阶段。
 
 <img src="why.assets/640-163028684305054" alt="图片" style="zoom:67%;" />
 
+可以看到三秒之后，抛出了异常：
+
+> MySQLTimeoutException: Statement cancelled due to timeout or client request
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/ELQw2WCMgt00YXqZHF96Ea64IMEh0SDPKNoVEm7sy1SVT5ggafIib4NMWMaCBTXfWFK3wrZMYfeiarG45wF3cncA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+这波，不需要我分析原因了吧？
