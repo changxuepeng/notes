@@ -229,7 +229,9 @@ ALTER TABLE用来创建普通索引、UNIQUE索引或PRIMARY KEY索引。
 
 其中table_name是要增加索引的表名，column_list指出对哪些列进行索引，多列时各列之间用逗号分隔。
 
-索引名index_name可自己命名，缺省时，MySQL将根据第一个索引列赋一个名称。另外，ALTER TABLE允许在单个语句中更改多个表，因此可以在同时创建多个索引。3、 使用CREATE INDEX命令创建。
+索引名index_name可自己命名，缺省时，MySQL将根据第一个索引列赋一个名称。另外，ALTER TABLE允许在单个语句中更改多个表，因此可以在同时创建多个索引。
+
+3、 使用CREATE INDEX命令创建。
 
 ```
 CREATE INDEX index_name ON table_name (column_list);
