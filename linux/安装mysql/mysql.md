@@ -137,3 +137,24 @@ grant all on *.* to root@'%' identified by '数据库密码';
 ```
 
 　　大功告成！！！
+
+
+
+# [mysql8.0无法给用户授权或提示You are not allowed to create a user with GRANT的问题](https://www.cnblogs.com/cqdxwjd/p/9925051.html)
+
+提示意思是不能用grant创建用户，mysql8.0以前的版本可以使用grant在授权的时候隐式的创建用户，8.0以后已经不支持，所以必须先创建用户，然后再授权，命令如下：
+
+```
+mysql> CREATE USER 'root'@'%' IDENTIFIED BY 'Hadoop3!';
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> grant all privileges on *.* to 'root'@'%';
+Query OK, 0 rows affected (0.03 sec)
+```
+
+另外，如果远程连接的时候报plugin caching_sha2_password could not be loaded这个错误，可以尝试修改密码加密插件：
+
+```
+ mysql> alter user 'root'@'%' identified with mysql_native_password by 'Hadoop3!';
+```
+
