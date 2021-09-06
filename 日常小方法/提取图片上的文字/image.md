@@ -198,6 +198,25 @@ public class LiteralExtractController {
 
 测试一图片：
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/eQPyBffYbuciao8zdaHIsYGhZYEbdLIdiaXvDd5CWLnd6picxxrxLXs032zeHiaSM0vn6qCsEUYTcXqVIn8KmfRz7Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+![图片](image.assets/640-163089123440710)
 
 测试一结果：
+
+![图片](image.assets/640-163089124199112)
+
+测试二图片：
+
+![图片](image.assets/640-163089126035616)
+
+测试二结果：
+
+![图片](image.assets/640-163089125820014)
+
+perfect，识别的很准确，第二个测试全部是英文字符的时候我们采用了中文训练的数据集，虽然也很好的识别了，但是速度会慢很多。
+
+## 七、总结
+
+图片识别在当今网络技术领域是非常热门的一块，而这次完成的这个程序完全是依赖别人开源框架来完成了这个技术实现，在应用层面这是成功的，但是本质上并没有实际算法，技术核心上的东西，如果只关心应用层开发上述解决了我们计算机在规则字符识别上的问题。
+
+上述代码中基本没有难点，直接复制即可使用。此外，tesseract作为一款优秀的开源字符识别软件，但它也不是万能的，tesseract只能识别规则的字符，对于一些艺术字，抽象字它是无能为力的。
+
