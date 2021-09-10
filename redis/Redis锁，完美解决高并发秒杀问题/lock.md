@@ -328,3 +328,111 @@ public class RedissonLock {
 }
 ```
 
+## 7.
+
+```java
+import java.util.UUID;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.connection.RedisStringCommands.SetOption;
+import org.springframework.data.redis.connection.ReturnType;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.types.Expiration;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+public class RedisLock {
+
+    //redis key 前缀
+    public final static String PREFIX_KEY = "kdsp:";
+
+    @SuppressWarnings({"unchecked"})
+    /**
+     * 加锁
+     * @param lockKey
+     * @param requestId 有效： Long reqId = System.nanoTime(); 配合  RedisLock.releaseLock(lockKey, reqId.toString());
+     * @param expireTime 单位秒
+     * @return
+     */
+    public static boolean acquireLock(String lockKey, String requestId, long expireTime) {
+        RedisTemplate<String, String> stringRedisTemplate = SpringUtil.getBean("stringRedisTemplate", RedisTemplate.class);
+        final String lockRequestId = StringUtils.isBlank(requestId) ? UUID.randomUUID().toString() : requestId;
+   
+        return stringRedisTemplate.execute(new RedisCallback<Boolean>() {
+            @Override
+            public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
+                StringRedisSerializer srs = new StringRedisSerializer();
+                byte[] key = srs.serialize(PREFIX_KEY + lockKey);
+                connection.set(key, srs.serialize(lockRequestId), Expiration.seconds(expireTime),
+                        SetOption.SET_IF_ABSENT);
+                if (lockRequestId.equals(srs.deserialize(connection.get(key)))) {
+                    return true;
+                }
+                return false;
+            }
+        });
+
+    }
+
+    /**
+     * 加锁
+     *
+     * @param lockKey
+     * @param expireTime 单位秒
+     * @return
+     */
+    public static boolean acquireLock(String lockKey, long expireTime) {
+        return acquireLock(lockKey, null, expireTime);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static boolean releaseLock(String lockKey, String requestId) {
+        RedisTemplate<String, String> stringRedisTemplate = SpringUtil.getBean("stringRedisTemplate", RedisTemplate.class);
+
+        return stringRedisTemplate.execute(new RedisCallback<Boolean>() {
+            @Override
+            public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
+                StringRedisSerializer srs = new StringRedisSerializer();
+                byte[] key = srs.serialize(PREFIX_KEY + lockKey);
+
+                String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
+
+                Boolean rs = connection.eval(srs.serialize(script), ReturnType.BOOLEAN, 1, key,
+                        srs.serialize(requestId));
+
+                return rs;
+            }
+        });
+    }
+
+    /**
+     * 设置key有效时间
+     *
+     * @param lockKey
+     * @param requestId
+     * @param expireTime 单位秒
+     * @return
+     */
+    public static boolean expireLock(String lockKey, String requestId, long expireTime) {
+        RedisTemplate<String, String> stringRedisTemplate = SpringUtil.getBean("stringRedisTemplate", RedisTemplate.class);
+
+        return stringRedisTemplate.execute(new RedisCallback<Boolean>() {
+            @Override
+            public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
+                StringRedisSerializer srs = new StringRedisSerializer();
+                byte[] key = srs.serialize(PREFIX_KEY + lockKey);
+                byte[] values = connection.get(key);
+                if (requestId.equals(srs.deserialize(values))) {
+                    return connection.expire(key, expireTime);
+                }
+                return false;
+            }
+        });
+
+    }
+}
+
+```
+
