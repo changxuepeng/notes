@@ -76,7 +76,7 @@ spring.rabbitmq.stream.*属性可用于配置对broker的访问，spring.rabbitm
 
 ### 其他变更
 
-#### 1. Reactive Session 个性化 
+### 1. Reactive Session 个性化 
 
 当前版本可以动态配置 reactive session 的有效期
 
@@ -84,7 +84,7 @@ spring.rabbitmq.stream.*属性可用于配置对broker的访问，spring.rabbitm
 server.reactive.session.timeout=30
 ```
 
-#### 2. Redis 链接自动配置链接池
+### 2. Redis 链接自动配置链接池
 
 当应用依赖中包含 commons-pool2.jar 会自动配置 redis 链接池 （Jedis Lettuce 都支持）。如果你想关闭则通过如下属性：
 
@@ -94,7 +94,7 @@ spring.redis.jedis.pool.enabled=false
 spring.redis.lettuce.pool.enabled=false
 ```
 
-#### 3. 构建信息个性化
+### 3. 构建信息个性化
 
 - 通过 spring-boot-maven-plugin 支持自动生成此次构建信息的 **build-info.properties**
 
@@ -110,7 +110,7 @@ spring.redis.lettuce.pool.enabled=false
     </plugin>
 ```
 
-#### 4. Metrics新增指标
+### 4. Metrics新增指标
 
 #### 应用启动的两个新指标：
 
@@ -128,7 +128,7 @@ disk.free： 磁盘空闲空间
 disk.total： 磁盘总空间
 ```
 
-#### 5. Docker镜像的构建
+### 5. Docker镜像的构建
 
 增强docker-maven-plugin插件的功能：
 
@@ -188,7 +188,7 @@ Relying upon circular references is discouraged and they are prohibited by defau
 spring.main.allow-circular-references=true
 ```
 
-#### 8. SpringMVC 默认路径匹配策略
+### 8. SpringMVC 默认路径匹配策略
 
 Spring MVC 处理程序映射匹配请求路径的默认策略已从 **AntPathMatcher** 更改为**PathPatternParser**。
 
@@ -211,3 +211,10 @@ spring.mvc.pathmatch.matching-strategy=ant-path-matcher
 - https://spring.io/blog/2021/11/19/spring-boot-2-6-is-now-available
 - https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.6.0-Configuration-Changelog
 - https://www.oschina.net/news/169783/spring-boot-2-6-0-released
+
+
+
+
+
+
+
